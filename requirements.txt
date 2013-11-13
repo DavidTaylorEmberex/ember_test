@@ -1,0 +1,13 @@
+1. User is not allowed to enter the letter p in a task (capability 4)
+	a. New tasks do not accept p.
+		Done!
+	b. Existing tasks do not accept p.
+2. If a task contains an x in it's label, all y's in all tasks are changed to z's
+	a. Entering an x in a new task converts all y's.
+		Done!
+	b. Entering an x in an existing task converts all y's.
+3. If a task contains a z in it's label, all 2s and 5s in all tasks are changed to a's
+	a. Entering a z in a new task converts all 2's and 5's.
+		Done!
+	b. Entering a z in an existing task converts all 2's and 5's.
+4. Allow the consumer to pass in a callback for errors; default behavior is an alert.
