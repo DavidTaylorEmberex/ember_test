@@ -18,17 +18,20 @@ Todos.TodoController = Ember.ObjectController.extend({
 		},
 
 		acceptChanges: function() {
+			console.log("Accepting changes.");
 			this.set('isEditing', false);
 			var title = this.get('model.title');
-			if (Ember.isEmpty(title) || title.match(/.*[pP].*/)) {
+			if (Ember.isEmpty(title)) {
 				this.send('removeTodo');
+			} else if (title.match(/.*[pP].*/)) {
+				return;
 			} else {
-				if (title.match(/.*[xX].*/)) {
-					var newTitle = title.replace(/x/, 'y').replace(/X/, 'Y');
-					this.set('model.title', newTitle);
-					this.invoke('save');
-				}
-				this.get('model').save();
+				var model = this.get('model');
+				var foo = this.store.filter('todo', function(todo) {
+					return true;
+				});
+				Todos.Utils.propagateModifications(model, this);
+				model.save();
 			}
 		},
 

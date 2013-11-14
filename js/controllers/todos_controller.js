@@ -3,8 +3,10 @@ Todos.TodosController = Ember.ArrayController.extend({
 		createTodo: function() {
 			// Get the todo title set by the "New Todo" text field.
 			var title = this.get('newTitle');
-			if (title === undefined || !title.trim() || title.match(/.*[pP].*/)) {
-				return;
+			for (var validator in Todos.Todo.TitleValidators) {
+				if (!Todos.Todo.TitleValidators[validator](title)) {
+					return;
+				}
 			}
 
 			// Create the new Todo model.
@@ -13,20 +15,13 @@ Todos.TodosController = Ember.ArrayController.extend({
 				isCompleted: false
 			});
 
-			// Clear the "New Todo" text field.
-			this.set('newTitle', '');
-
 			// Save the new model.
 			todo.save();
 
-			this.forEach(function(item, index, enumerable) {
-				var oldTitle = item.get('title');
-				var updatedTitle = oldTitle.replace(/x/g, 'y').replace(/X/g, 'Y').replace(/[25]/g, 'a');
-				if (updatedTitle != oldTitle) {
-					item.set('title', updatedTitle);
-					item.save();
-				}
-			});
+			// Clear the "New Todo" text field.
+			this.set('newTitle', '');
+
+			Todos.Utils.propagateModifications(todo, this);
 		},
 
 		clearCompleted: function() {

@@ -9,7 +9,7 @@
 		<script type="text/x-handlebars" data-template-name="todos/index">
 			<ul id="todo-list">
 				{{#each itemController="todo"}}
-					<!-- Warning: no space after 'isCompleted:'!" -->
+					<!-- Warning: there cannot be a space after 'isCompleted:'!" -->
 					<li {{bind-attr class="isCompleted:completed isEditing:editing"}}>
 						{{#if isEditing}}
 							{{edit-todo class="edit" value=title focus-out="acceptChanges"
@@ -74,6 +74,7 @@
 
 		<script src="js/application.js"></script>
 		<script src="js/router.js"></script>
+		<script src="js/utils.js"></script>
 
 		<script src="js/models/todo.js"></script>
 
