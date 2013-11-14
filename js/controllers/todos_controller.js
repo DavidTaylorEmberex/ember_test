@@ -21,7 +21,7 @@ Todos.TodosController = Ember.ArrayController.extend({
 			// Clear the "New Todo" text field.
 			this.set('newTitle', '');
 
-			Todos.Utils.propagateModifications(todo, this);
+			Todos.Utils.propagateModifications(todo, this.store);
 		},
 
 		clearCompleted: function() {

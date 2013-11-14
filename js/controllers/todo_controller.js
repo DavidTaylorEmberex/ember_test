@@ -18,8 +18,6 @@ Todos.TodoController = Ember.ObjectController.extend({
 		},
 
 		acceptChanges: function() {
-			console.log("Accepting changes.");
-			this.set('isEditing', false);
 			var title = this.get('model.title');
 			if (Ember.isEmpty(title)) {
 				this.send('removeTodo');
@@ -30,9 +28,10 @@ Todos.TodoController = Ember.ObjectController.extend({
 				var foo = this.store.filter('todo', function(todo) {
 					return true;
 				});
-				Todos.Utils.propagateModifications(model, this);
 				model.save();
+				Todos.Utils.propagateModifications(model, this.store);
 			}
+			this.set('isEditing', false);
 		},
 
 		removeTodo: function() {
