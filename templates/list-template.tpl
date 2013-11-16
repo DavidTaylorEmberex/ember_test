@@ -1,4 +1,4 @@
-<script type="text/handlebars" data-template-name="todos">
+<script type="text/x-handlebars" data-template-name="todos">
 	<section id="todoapp">
 		<header id="header">
 			<h1>todos</h1> 
