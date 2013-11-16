@@ -13,7 +13,7 @@ jQuery(function() {
 	};	
 
 	var checkOak = function() {
-		if (!window.Oak) {
+		if (!window.Oak || !window.Oak.create) {
 			console.log("Not found");
 			setTimeout(function() {
 				console.log("Looking again.");

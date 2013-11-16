@@ -13,7 +13,6 @@ require([
 	Oak.errorCallback = function(message, error) {};
 	Oak.create = function(options) {
 		console.log("Setting options...");
-		debugger;
 		// Set up options.
 		if (options.containerElementId) {
 			Oak.containerElement = jQuery("#" + options.containerElementId);
@@ -23,16 +22,27 @@ require([
 		}
 
 		// Add template scripts.
-		var appendTemplate = function(templateName) {
+		var appendTemplate = function(templateName, callback) {
 			jQuery.get("templates/" + templateName, function(data) {
 				Oak.containerElement.prepend(data);
+				callback(templateName);
 			});
 		};
 
-		appendTemplate("item-template.tpl");
-		appendTemplate("list-template.tpl");
-
-		// TODO: Create the Ember application.
+		var templates = ["item-template.tpl", "list-template.tpl"];
+		var toLoad = templates.length;
+		var loaded = 0;
+		for (var i = 0; i < toLoad; i++) {
+			appendTemplate(templates[i], function(template) {
+				console.log("Loaded " + template);
+				loaded++;
+				if (loaded == toLoad) {
+					require(["js/compiled"], function() {
+						console.log("Everything is loaded!");
+					});
+				}
+			});
+		}
 
 		console.log("Foo");
 	};
