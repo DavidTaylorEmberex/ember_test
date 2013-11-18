@@ -10,11 +10,12 @@ require([
 	console.log("loaded");
 	window.Oak = {};
 	Oak.containerElement = jQuery("body");
-	Oak.errorCallback = function(message, error) {};
+	Oak.errorCallback = function(message, error) {alert(message);};
 	Oak.create = function(options) {
 		console.log("Setting options...");
 		// Set up options.
 		if (options.containerElementId) {
+			Oak.containerElementId = options.containerElementId;
 			Oak.containerElement = jQuery("#" + options.containerElementId);
 		}
 		if (options.errorCallback) {

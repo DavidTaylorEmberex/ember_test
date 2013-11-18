@@ -62,12 +62,20 @@ Todos.Todo = DS.Model.extend({
 Todos.Todo.TitleValidators = {
 	// Title is not blank.
 	titleNotBlank: function(title) {
-		return title !== undefined && title.trim() != "";
+		if (title === undefined || title.trim() == "") {
+			Oak.errorCallback("Title may not be blank.", new Error("Title may not be blank."));
+			return false;
+		}
+		return true;
 	},
 
 	// Title does not contain p.
 	titleDoesNotContainP: function(title) {
-		return !title.match(/.*[pP].*/);
+		if (title.match(/.*[pP].*/)) {
+			Oak.errorCallback("Title may not contain p.", new Error("Title may not contain p."));
+			return false;
+		}
+		return true;
 	}
 };
 
